@@ -1,3 +1,17 @@
+;; Set up package.el to work with MELPA
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(package-refresh-contents)
+
+;; Download Evil
+(unless (package-installed-p 'evil)
+  (package-install 'evil))
+(unless (package-installed-p 'sublime-themes)
+  (package-install 'sublime-themes))
+(unless (package-installed-p 'company)
+  (package-install 'company))
+
 ;;emacs font
 (set-face-attribute 'default nil :font "Monospace-11")
 
@@ -21,8 +35,8 @@
 ;;themes
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 ;;(load-theme 'hickey t)
- (load-theme 'lethe t t)
- (enable-theme 'lethe)
+;; (load-theme 'lethe t t)
+;; (enable-theme 'lethe)
 
 
 ;; Suppress startup screen and messages
@@ -132,4 +146,11 @@
 ;; Allow cycling through suggestions with C-n / C-p
 (define-key company-active-map (kbd "C-n") 'company-select-next)
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
-(define-key company-active-map (kbd "<tab>") 'company-complete-selection)
+(define-key company-active-map (kbd "<tab>") 'company-complete-selection);; Enable Evil
+(require 'evil)
+(evil-mode 1)
+;;sublime theme
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'hickey t)
+;;startup
+(setq inhibit-splash-screen t)         ; hide welcome screen
